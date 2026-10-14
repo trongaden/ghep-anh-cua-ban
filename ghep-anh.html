@@ -1,152 +1,133 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
-{\colortbl;\red255\green255\blue255;\red0\green0\blue0;}
-{\*\expandedcolortbl;;\cssrgb\c0\c0\c0;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\deftab720
-\pard\pardeftab720\partightenfactor0
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghép Ảnh Hội Thoại</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; }
+        body { background: #f0f4f8; padding: 20px; max-width: 600px; margin: 0 auto; }
+        h1 { text-align: center; color: #2d3748; margin-bottom: 25px; font-size: 1.4rem; }
+        .upload-box { background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .drop-area { border: 2px dashed #cbd5e0; border-radius: 12px; padding: 30px 15px; text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 10px; }
+        .drop-area.active { border-color: #3182ce; background: #ebf8ff; }
+        .preview { width: 100%; margin-top: 12px; border-radius: 8px; display: none; }
+        label { font-weight: 600; color: #2d3748; display: block; margin-bottom: 8px; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+        .btn-primary { background: #3182ce; color: white; margin-top: 10px; }
+        .btn-primary:hover { background: #2b6cb0; }
+        .result-box { margin-top: 25px; display: none; }
+        .result-img { width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .download-btn { background: #38a169; color: white; margin-top: 15px; }
+        .download-btn:hover { background: #2f855a; }
+    </style>
+</head>
+<body>
+    <h1>✨ Ghép Ảnh Hội Thoại & Ảnh Nền</h1>
 
-\f0\fs32 \cf0 \expnd0\expndtw0\kerning0
-\outl0\strokewidth0 \strokec2 <!DOCTYPE html>\
-<html lang="vi">\
-<head>\
-    <meta charset="UTF-8">\
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
-    <title>Gh\'e9p \uc0\u7842 nh H\u7897 i Tho\u7841 i</title>\
-    <style>\
-        * \{ margin: 0; padding: 0; box-sizing: border-box; font-family: system-ui, sans-serif; \}\
-        body \{ background: #f0f4f8; padding: 20px; max-width: 600px; margin: 0 auto; \}\
-        h1 \{ text-align: center; color: #2d3748; margin-bottom: 25px; font-size: 1.4rem; \}\
-        .upload-box \{ background: white; border-radius: 16px; padding: 20px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); \}\
-        .drop-area \{ border: 2px dashed #cbd5e0; border-radius: 12px; padding: 30px 15px; text-align: center; cursor: pointer; transition: all 0.3s; margin-bottom: 10px; \}\
-        .drop-area.active \{ border-color: #3182ce; background: #ebf8ff; \}\
-        .preview \{ width: 100%; margin-top: 12px; border-radius: 8px; display: none; \}\
-        label \{ font-weight: 600; color: #2d3748; display: block; margin-bottom: 8px; \}\
-        .btn \{ width: 100%; padding: 14px; border: none; border-radius: 12px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; \}\
-        .btn-primary \{ background: #3182ce; color: white; margin-top: 10px; \}\
-        .btn-primary:hover \{ background: #2b6cb0; \}\
-        .result-box \{ margin-top: 25px; display: none; \}\
-        .result-img \{ width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); \}\
-        .download-btn \{ background: #38a169; color: white; margin-top: 15px; \}\
-        .download-btn:hover \{ background: #2f855a; \}\
-        .hint \{ font-size: 0.85rem; color: #718096; margin-top: 6px; \}\
-    </style>\
-</head>\
-<body>\
-    <h1>\uc0\u10024  Gh\'e9p \u7842 nh H\u7897 i Tho\u7841 i & \u7842 nh N\u7873 n</h1>\
-\
-    <div class="upload-box">\
-        <label>1\uc0\u65039 \u8419  \u7842 nh khung h\u7897 i tho\u7841 i</label>\
-        <div class="drop-area" id="dropChat">\
-            Nh\uc0\u7845 n ho\u7863 c k\'e9o th\u7843  \u7843 nh v\'e0o \u273 \'e2y\
-            <input type="file" id="imgChat" accept="image/*" style="display: none;">\
-        </div>\
-        <img id="previewChat" class="preview" alt="Xem tr\uc0\u432 \u7899 c">\
-    </div>\
-\
-    <div class="upload-box">\
-        <label>2\uc0\u65039 \u8419  \u7842 nh n\u7873 n c\'e1 nh\'e2n</label>\
-        <div class="drop-area" id="dropBg">\
-            Nh\uc0\u7845 n ho\u7863 c k\'e9o th\u7843  \u7843 nh v\'e0o \u273 \'e2y\
-            <input type="file" id="imgBg" accept="image/*" style="display: none;">\
-        </div>\
-        <img id="previewBg" class="preview" alt="Xem tr\uc0\u432 \u7899 c">\
-    </div>\
-\
-    <button class="btn btn-primary" id="btnMerge" style="display: none;">\uc0\u55357 \u56580  T\u7841 o \u7842 nh Ho\'e0n Ch\u7881 nh</button>\
-\
-    <div class="result-box" id="resultBox">\
-        <label>\uc0\u9989  K\u7871 t qu\u7843 </label>\
-        <canvas id="canvas" style="display: none;"></canvas>\
-        <img id="resultImg" class="result-img" alt="K\uc0\u7871 t qu\u7843 ">\
-        <a class="btn download-btn" id="downloadLink" download="anh_hoan_chinh.png">\uc0\u55357 \u56510  T\u7843 i \u7842 nh V\u7873 </a>\
-    </div>\
-\
-    <script>\
-        const IMG_RATIO = 9 / 16; // T\uc0\u7927  l\u7879  \u7843 nh d\u7885 c chu\u7849 n \u273 i\u7879 n tho\u7841 i\
-        // C\uc0\u7845 u h\'ecnh khung h\u7897 i tho\u7841 i: chi\u7871 m chi\u7873 u ngang 92%, cao 38% chi\u7873 u \u7843 nh, \u273 \u7863 t tr\'ean c\'f9ng\
-        const CHAT_WIDTH_RATIO = 0.92;\
-        const CHAT_HEIGHT_RATIO = 0.38;\
-        const CHAT_TOP_RATIO = 0.04;\
-\
-        let chatImg = null;\
-        let bgImg = null;\
-\
-        function setupDropArea(dropId, inputId, previewId, callback) \{\
-            const dropArea = document.getElementById(dropId);\
-            const input = document.getElementById(inputId);\
-            const preview = document.getElementById(previewId);\
-\
-            dropArea.addEventListener('click', () => input.click());\
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => \{\
-                dropArea.addEventListener(evt, e => \{\
-                    e.preventDefault();\
-                    e.stopPropagation();\
-                \});\
-            \});\
-            ['dragenter', 'dragover'].forEach(evt => \{\
-                dropArea.addEventListener(evt, () => dropArea.classList.add('active'));\
-            \});\
-            ['dragleave', 'drop'].forEach(evt => \{\
-                dropArea.addEventListener(evt, () => dropArea.classList.remove('active'));\
-            \});\
-            dropArea.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));\
-            input.addEventListener('change', e => handleFile(e.target.files[0]));\
-\
-            function handleFile(file) \{\
-                if (!file || !file.type.startsWith('image/')) return;\
-                const reader = new FileReader();\
-                reader.onload = e => \{\
-                    const img = new Image();\
-                    img.onload = () => \{\
-                        callback(img);\
-                        preview.src = e.target.result;\
-                        preview.style.display = 'block';\
-                        checkReady();\
-                    \};\
-                    img.src = e.target.result;\
-                \};\
-                reader.readAsDataURL(file);\
-            \}\
-        \}\
-\
-        function checkReady() \{\
-            if (chatImg && bgImg) \{\
-                document.getElementById('btnMerge').style.display = 'block';\
-            \}\
-        \}\
-\
-        function mergeImages() \{\
-            const canvas = document.getElementById('canvas');\
-            const ctx = canvas.getContext('2d');\
-            const W = 1080; // Chi\uc0\u7873 u ngang chu\u7849 n\
-            const H = Math.round(W / IMG_RATIO); // Chi\uc0\u7873 u cao t\u7921  t\'ednh ra 1920\
-\
-            canvas.width = W;\
-            canvas.height = H;\
-\
-            // V\uc0\u7869  \u7843 nh n\u7873 n co gi\'e3n \u273 \u7847 y khung\
-            ctx.drawImage(bgImg, 0, 0, W, H);\
-\
-            // T\'ednh k\'edch th\uc0\u432 \u7899 c khung h\u7897 i tho\u7841 i\
-            const cw = Math.round(W * CHAT_WIDTH_RATIO);\
-            const ch = Math.round(H * CHAT_HEIGHT_RATIO);\
-            const cx = Math.round((W - cw) / 2); // C\uc0\u259 n gi\u7919 a\
-            const cy = Math.round(H * CHAT_TOP_RATIO);\
-\
-            ctx.drawImage(chatImg, cx, cy, cw, ch);\
-\
-            // Xu\uc0\u7845 t ra \u7843 nh\
-            const dataUrl = canvas.toDataURL('image/png');\
-            document.getElementById('resultImg').src = dataUrl;\
-            document.getElementById('resultBox').style.display = 'block';\
-            document.getElementById('downloadLink').href = dataUrl;\
-        \}\
-\
-        // Kh\uc0\u7903 i t\u7841 o\
-        setupDropArea('dropChat', 'imgChat', 'previewChat', img => \{ chatImg = img; \});\
-        setupDropArea('dropBg', 'imgBg', 'previewBg', img => \{ bgImg = img; \});\
-        document.getElementById('btnMerge').addEventListener('click', mergeImages);\
-    </script>\
-</body>\
-</html>}
+    <div class="upload-box">
+        <label>1️⃣ Ảnh khung hội thoại</label>
+        <div class="drop-area" id="dropChat">
+            Nhấn hoặc kéo thả ảnh vào đây
+            <input type="file" id="imgChat" accept="image/*" style="display: none;">
+        </div>
+        <img id="previewChat" class="preview" alt="Xem trước">
+    </div>
+
+    <div class="upload-box">
+        <label>2️⃣ Ảnh nền cá nhân</label>
+        <div class="drop-area" id="dropBg">
+            Nhấn hoặc kéo thả ảnh vào đây
+            <input type="file" id="imgBg" accept="image/*" style="display: none;">
+        </div>
+        <img id="previewBg" class="preview" alt="Xem trước">
+    </div>
+
+    <button class="btn btn-primary" id="btnMerge" style="display: none;">🔄 Tạo Ảnh Hoàn Chỉnh</button>
+
+    <div class="result-box" id="resultBox">
+        <label>✅ Kết quả</label>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <img id="resultImg" class="result-img" alt="Kết quả">
+        <a class="btn download-btn" id="downloadLink" download="anh_hoan_chinh.png">💾 Tải Ảnh Về</a>
+    </div>
+
+    <script>
+        const IMG_RATIO = 9 / 16;
+        const CHAT_WIDTH_RATIO = 0.92;
+        const CHAT_HEIGHT_RATIO = 0.38;
+        const CHAT_TOP_RATIO = 0.04;
+
+        let chatImg = null;
+        let bgImg = null;
+
+        function setupDropArea(dropId, inputId, previewId, callback) {
+            const dropArea = document.getElementById(dropId);
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(previewId);
+
+            dropArea.addEventListener('click', () => input.click());
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(evt => {
+                dropArea.addEventListener(evt, e => { e.preventDefault(); e.stopPropagation(); });
+            });
+            ['dragenter', 'dragover'].forEach(evt => {
+                dropArea.addEventListener(evt, () => dropArea.classList.add('active'));
+            });
+            ['dragleave', 'drop'].forEach(evt => {
+                dropArea.addEventListener(evt, () => dropArea.classList.remove('active'));
+            });
+            dropArea.addEventListener('drop', e => handleFile(e.dataTransfer.files[0]));
+            input.addEventListener('change', e => handleFile(e.target.files[0]));
+
+            function handleFile(file) {
+                if (!file || !file.type.startsWith('image/')) return;
+                const reader = new FileReader();
+                reader.onload = e => {
+                    const img = new Image();
+                    img.onload = () => {
+                        callback(img);
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        checkReady();
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function checkReady() {
+            if (chatImg && bgImg) {
+                document.getElementById('btnMerge').style.display = 'block';
+            }
+        }
+
+        function mergeImages() {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+            const W = 1080;
+            const H = Math.round(W / IMG_RATIO);
+            canvas.width = W;
+            canvas.height = H;
+
+            ctx.drawImage(bgImg, 0, 0, W, H);
+
+            const cw = Math.round(W * CHAT_WIDTH_RATIO);
+            const ch = Math.round(H * CHAT_HEIGHT_RATIO);
+            const cx = Math.round((W - cw) / 2);
+            const cy = Math.round(H * CHAT_TOP_RATIO);
+
+            ctx.drawImage(chatImg, cx, cy, cw, ch);
+
+            const dataUrl = canvas.toDataURL('image/png');
+            document.getElementById('resultImg').src = dataUrl;
+            document.getElementById('resultBox').style.display = 'block';
+            document.getElementById('downloadLink').href = dataUrl;
+        }
+
+        setupDropArea('dropChat', 'imgChat', 'previewChat', img => { chatImg = img; });
+        setupDropArea('dropBg', 'imgBg', 'previewBg', img => { bgImg = img; });
+        document.getElementById('btnMerge').addEventListener('click', mergeImages);
+    </script>
+</body>
+</html>
